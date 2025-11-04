@@ -54,6 +54,8 @@ export class AnthropicHandler extends BaseProvider implements SingleCompletionHa
 		}
 
 		switch (modelId) {
+			case "MiniMax-M2":
+			case "claude-sonnet-4-5-20250929":
 			case "claude-sonnet-4-5":
 			case "claude-sonnet-4-20250514":
 			case "claude-opus-4-1-20250805":
@@ -115,6 +117,8 @@ export class AnthropicHandler extends BaseProvider implements SingleCompletionHa
 
 						// Then check for models that support prompt caching
 						switch (modelId) {
+							case "MiniMax-M2":
+							case "claude-sonnet-4-5-20250929":
 							case "claude-sonnet-4-5":
 							case "claude-sonnet-4-20250514":
 							case "claude-opus-4-1-20250805":
