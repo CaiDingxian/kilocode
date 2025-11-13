@@ -1,8 +1,6 @@
 # kilo-code
 
-## 4.119.3
-
-### Patch Changes
+## [v4.119.3]
 
 - [#3750](https://github.com/Kilo-Org/kilocode/pull/3750) [`02832d7`](https://github.com/Kilo-Org/kilocode/commit/02832d70ab51b4bacd9608e8bdad271ccec9eddb) Thanks [@jrf0110](https://github.com/jrf0110)! - Fixes a bug where managed code indexing would not start due to mismatching org schemas.
 
