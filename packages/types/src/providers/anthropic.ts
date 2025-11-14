@@ -6,7 +6,21 @@ export type AnthropicModelId = keyof typeof anthropicModels
 export const anthropicDefaultModelId: AnthropicModelId = "claude-sonnet-4-20250514"
 
 export const anthropicModels = {
-		"MiniMax-M2": {
+	"kimi-for-coding": {
+		maxTokens: 128_000, // Overridden to 8k if `enableReasoningEffort` is false.
+		contextWindow: 128_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
+		supportsImages: true,
+		supportsComputerUse: true,
+		supportsPromptCache: true,
+		inputPrice: 0, // $3 per million input tokens (≤200K context)
+		outputPrice: 0, // $15 per million output tokens (≤200K context)
+		cacheWritesPrice: 0, // $3.75 per million tokens
+		cacheReadsPrice: 0, // $0.30 per million tokens
+		supportsReasoningBudget: true,
+		// Tiered pricing for extended context (requires beta flag 'context-1m-2025-08-07')
+		tiers: [],
+	},
+	"MiniMax-M2-Stable": {
 		maxTokens: 64_000, // Overridden to 8k if `enableReasoningEffort` is false.
 		contextWindow: 200_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
 		supportsImages: true,
@@ -18,10 +32,23 @@ export const anthropicModels = {
 		cacheReadsPrice: 0.3, // $0.30 per million tokens
 		supportsReasoningBudget: true,
 		// Tiered pricing for extended context (requires beta flag 'context-1m-2025-08-07')
-		tiers: [
-		],
+		tiers: [],
 	},
-		"claude-sonnet-4-5-20250929": {
+	"MiniMax-M2": {
+		maxTokens: 64_000, // Overridden to 8k if `enableReasoningEffort` is false.
+		contextWindow: 200_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
+		supportsImages: true,
+		supportsComputerUse: true,
+		supportsPromptCache: true,
+		inputPrice: 0.3, // $3 per million input tokens (≤200K context)
+		outputPrice: 1.2, // $15 per million output tokens (≤200K context)
+		cacheWritesPrice: 0.3, // $3.75 per million tokens
+		cacheReadsPrice: 0.3, // $0.30 per million tokens
+		supportsReasoningBudget: true,
+		// Tiered pricing for extended context (requires beta flag 'context-1m-2025-08-07')
+		tiers: [],
+	},
+	"claude-sonnet-4-5-20250929": {
 		maxTokens: 64_000, // Overridden to 8k if `enableReasoningEffort` is false.
 		contextWindow: 200_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
 		supportsImages: true,
