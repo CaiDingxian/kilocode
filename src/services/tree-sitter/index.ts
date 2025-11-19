@@ -6,6 +6,7 @@ import { fileExistsAtPath } from "../../utils/fs"
 import { parseMarkdown } from "./markdownParser"
 import { RooIgnoreController } from "../../core/ignore/RooIgnoreController"
 import { QueryCapture } from "web-tree-sitter"
+import { createLLMBasedParser } from "./LLMBasedParser"
 
 const METHOD_CAPTURE = ["definition.method", "definition.method.start"] // kilocode_change
 
@@ -249,7 +250,7 @@ Parsing files using tree-sitter
 
 1. Parse the file content into an AST (Abstract Syntax Tree) using the appropriate language grammar (set of rules that define how the components of a language like keywords, expressions, and statements can be combined to create valid programs).
 2. Create a query using a language-specific query string, and run it against the AST's root node to capture specific syntax elements.
-    - We use tag queries to identify named entities in a program, and then use a syntax capture to label the entity and its name. A notable example of this is GitHub's search-based code navigation.
+	- We use tag queries to identify named entities in a program, and then use a syntax capture to label the entity and its name. A notable example of this is GitHub's search-based code navigation.
 	- Our custom tag queries are based on tree-sitter's default tag queries, but modified to only capture definitions.
 3. Sort the captures by their position in the file, output the name of the definition, and format by i.e. adding "|----\n" for gaps between captured sections.
 
@@ -412,13 +413,24 @@ async function parseFile(
 		const tree = parser.parse(fileContent)
 
 		// Apply the query to the AST and get the captures
-		const captures = tree ? query.captures(tree.rootNode) : []
-
+		//const captures = tree ? query.captures(tree.rootNode) : []
 		// Split the file content into individual lines
 		const lines = fileContent.split("\n")
-
+		const formatContent = Array.from({ length: lines.length }, (_, i) => i)
+			.map((it) => {
+				return it + 1 + " | " + lines[it]
+			})
+			.join("\n")
 		// Process the captures
-		return processCaptures(captures, lines, extLang)
+		//return processCaptures(captures, lines, extLang)
+		const llmBasedParser = createLLMBasedParser({
+			apiKey: "sk-bd299a45d91941b2a2d003271de8be5e",
+			baseUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1",
+			model: "qwen-flash-2025-07-28",
+			timeout: 15000,
+		})
+		const result = await llmBasedParser.parse(formatContent)
+		return result
 	} catch (error) {
 		console.log(`Error parsing file: ${error}\n`)
 		// Return null on parsing error to avoid showing error messages in the output

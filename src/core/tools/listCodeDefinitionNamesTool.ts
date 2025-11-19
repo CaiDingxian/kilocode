@@ -56,7 +56,7 @@ export async function listCodeDefinitionNamesTool(
 					// Apply truncation based on maxReadFileLine setting
 					if (fileResult) {
 						const { maxReadFileLine = -1 } = (await cline.providerRef.deref()?.getState()) ?? {}
-						result = truncateDefinitionsToLineLimit(fileResult, maxReadFileLine)
+						result = fileResult //truncateDefinitionsToLineLimit(fileResult, maxReadFileLine)
 					} else {
 						result = "No source code definitions found in file."
 					}
