@@ -423,13 +423,18 @@ async function parseFile(
 			.join("\n")
 		// Process the captures
 		//return processCaptures(captures, lines, extLang)
+		// const llmBasedParser = createLLMBasedParser({
+		// 	apiKey: "sk-bd299a45d91941b2a2d003271de8be5e",
+		// 	baseUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1",
+		// 	model: "qwen-flash-2025-07-28",
+		// 	timeout: 15000,
+		// })
 		const llmBasedParser = createLLMBasedParser({
-			apiKey: "sk-bd299a45d91941b2a2d003271de8be5e",
-			baseUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1",
-			model: "qwen-flash-2025-07-28",
-			timeout: 15000,
+			apiKey: "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",
+			baseUrl: "https://openrouter.ai/api/v1",
+			model: "google/gemini-2.5-flash",
 		})
-		const result = await llmBasedParser.parse(formatContent)
+		const result = await llmBasedParser.parse(formatContent, extLang)
 		return result
 	} catch (error) {
 		console.log(`Error parsing file: ${error}\n`)
