@@ -154,13 +154,17 @@ export class OpenAiHandler extends BaseProvider implements SingleCompletionHandl
 
 			const isGrokXAI = this._isGrokXAI(this.options.openAiBaseUrl)
 
-			const requestOptions: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming = {
+			const requestOptions: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming & {
+				enable_thinking?: boolean
+			} = {
 				model: modelId,
 				temperature: this.options.modelTemperature ?? (deepseekReasoner ? DEEP_SEEK_DEFAULT_TEMPERATURE : 0),
 				messages: convertedMessages,
 				stream: true as const,
 				...(isGrokXAI ? {} : { stream_options: { include_usage: true } }),
 				...(reasoning && reasoning),
+				enable_thinking:
+					modelId.indexOf("qwen3-max") >= 0 ? reasoning?.reasoning_effort !== undefined : undefined,
 				...(metadata?.tools && { tools: this.convertToolsForOpenAI(metadata.tools) }),
 				...(metadata?.tool_choice && { tool_choice: metadata.tool_choice }),
 				...(metadata?.toolProtocol === "native" &&

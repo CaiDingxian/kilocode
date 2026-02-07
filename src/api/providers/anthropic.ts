@@ -118,6 +118,10 @@ export class AnthropicHandler extends BaseProvider implements SingleCompletionHa
 
 		switch (modelId) {
 			case "claude-opus-4-6": // kilocode_change
+			case "MiniMax-M2":
+			case "MiniMax-M2-Stable":
+			case "qwen3-max-2026-01-23":
+			case "claude-sonnet-4-5-20250929":
 			case "claude-sonnet-4-5":
 			case "claude-sonnet-4-20250514":
 			case "claude-opus-4-5-20251101":
@@ -154,6 +158,7 @@ export class AnthropicHandler extends BaseProvider implements SingleCompletionHa
 							max_tokens: maxTokens ?? ANTHROPIC_DEFAULT_MAX_TOKENS,
 							temperature,
 							thinking: thinking as Anthropic.Messages.ThinkingConfigParam | undefined, // kilocode_change
+							enable_thinking: thinking?.type === "enabled" ? true : undefined,
 							// Setting cache breakpoint for system prompt so new tasks can reuse it.
 							system: [{ text: systemPrompt, type: "text", cache_control: cacheControl }],
 							messages: sanitizedMessages.map((message, index) => {
@@ -191,7 +196,10 @@ export class AnthropicHandler extends BaseProvider implements SingleCompletionHa
 
 							// Then check for models that support prompt caching
 							switch (modelId) {
-								case "claude-opus-4-6": // kilocode_change
+								case "qwen3-max-2026-01-23":
+								case "MiniMax-M2":
+								case "MiniMax-M2-Stable":
+								case "claude-sonnet-4-5-20250929":
 								case "claude-sonnet-4-5":
 								case "claude-sonnet-4-20250514":
 								case "claude-opus-4-5-20251101":

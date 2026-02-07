@@ -7,6 +7,96 @@ export const anthropicDefaultModelId: AnthropicModelId = "claude-sonnet-4-5"
 
 export const anthropicModels = {
 	// kilocode_change start
+	"qwen3-max-2026-01-23": {
+		supportsTemperature: true,
+		maxTokens: 32_000, // Overridden to 8k if `enableReasoningEffort` is false.
+		contextWindow: 256_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
+		supportsImages: true,
+		preserveReasoning: true,
+		supportsPromptCache: false,
+		inputPrice: 0.357, // $3 per million input tokens (≤200K context)
+		outputPrice: 1.42, // $15 per million output tokens (≤200K context)
+		cacheWritesPrice: 0.357 * 1.25, // $3.75 per million tokens
+		cacheReadsPrice: 0.357 * 0.1, // $0.30 per million tokens
+		supportsReasoningBudget: true,
+		// supportsReasoningEffort: true,
+		supportedParameters: ["temperature"],
+		//supportedParameters: ["reasoning", "max_tokens", "temperature", "include_reasoning"],
+		// Tiered pricing for extended context (requires beta flag 'context-1m-2025-08-07')
+		tiers: [
+			{
+				contextWindow: 32_000, // 1M tokens with beta flag
+				inputPrice: 0.57, // $6 per million input tokens (>200K context)
+				outputPrice: 2.28, // $22.50 per million output tokens (>200K context)
+				cacheWritesPrice: 2.28 * 1.25, // $7.50 per million tokens (>200K context)
+				cacheReadsPrice: 0.57 * 1.25, // $0.60 per million tokens (>200K context)
+			},
+		],
+	},
+	"kimi-k2.5": {
+		supportsNativeTools: true,
+		maxTokens: 32_000,
+		preserveReasoning: true,
+		contextWindow: 131_072,
+		supportsImages: true,
+		supportsPromptCache: true,
+		supportsReasoningBudget: true,
+		supportsReasoningEffort: true,
+		inputPrice: 0.6, // $0.60 per million tokens (cache miss)
+		outputPrice: 2.5, // $2.50 per million tokens
+		cacheWritesPrice: 0, // $0 per million tokens (cache miss)
+		cacheReadsPrice: 0.15, // $0.15 per million tokens (cache hit)
+		description: `kimi-k2.5`,
+	},
+	"MiniMax-M2-Stable": {
+		maxTokens: 64_000, // Overridden to 8k if `enableReasoningEffort` is false.
+		contextWindow: 200_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
+		supportsImages: true,
+		supportsPromptCache: true,
+		inputPrice: 0.3, // $3 per million input tokens (≤200K context)
+		outputPrice: 1.2, // $15 per million output tokens (≤200K context)
+		cacheWritesPrice: 0.3, // $3.75 per million tokens
+		cacheReadsPrice: 0.3, // $0.30 per million tokens
+		supportsReasoningBudget: true,
+		// Tiered pricing for extended context (requires beta flag 'context-1m-2025-08-07')
+		tiers: [],
+	},
+	"MiniMax-M2": {
+		maxTokens: 64_000, // Overridden to 8k if `enableReasoningEffort` is false.
+		contextWindow: 200_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
+		supportsImages: true,
+		supportsPromptCache: true,
+		inputPrice: 0.3, // $3 per million input tokens (≤200K context)
+		outputPrice: 1.2, // $15 per million output tokens (≤200K context)
+		cacheWritesPrice: 0.3, // $3.75 per million tokens
+		cacheReadsPrice: 0.3, // $0.30 per million tokens
+		supportsReasoningBudget: true,
+		// Tiered pricing for extended context (requires beta flag 'context-1m-2025-08-07')
+		tiers: [],
+	},
+	"claude-sonnet-4-5-20250929": {
+		maxTokens: 64_000, // Overridden to 8k if `enableReasoningEffort` is false.
+		contextWindow: 200_000, // Default 200K, extendable to 1M with beta flag 'context-1m-2025-08-07'
+		supportsImages: true,
+		supportsPromptCache: true,
+		supportsNativeTools: true,
+		defaultToolProtocol: "native",
+		inputPrice: 3.0, // $3 per million input tokens (≤200K context)
+		outputPrice: 15.0, // $15 per million output tokens (≤200K context)
+		cacheWritesPrice: 3.75, // $3.75 per million tokens
+		cacheReadsPrice: 0.3, // $0.30 per million tokens
+		supportsReasoningBudget: true,
+		// Tiered pricing for extended context (requires beta flag 'context-1m-2025-08-07')
+		tiers: [
+			{
+				contextWindow: 1_000_000, // 1M tokens with beta flag
+				inputPrice: 6.0, // $6 per million input tokens (>200K context)
+				outputPrice: 22.5, // $22.50 per million output tokens (>200K context)
+				cacheWritesPrice: 7.5, // $7.50 per million tokens (>200K context)
+				cacheReadsPrice: 0.6, // $0.60 per million tokens (>200K context)
+			},
+		],
+	},
 	"claude-opus-4-6": {
 		maxTokens: 128_000,
 		contextWindow: 200_000,
