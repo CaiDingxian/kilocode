@@ -8,6 +8,18 @@
 
 # 🚀 Kilo
 
+This branch offers several features not officially supported by Kilo:
+
+- Provides optimal thinking mode support for Kimi-k2.5 under the Moonshot Provider, merged from https://github.com/Neonsy/kilocode/tree/fix/moonshot-kimi-k2-5
+- Supports both thinking and non-thinking modes for qwen3-max-2026-01-23 (Qwen3-Max-Thinking) under the Anthropic Provider and Open AI Provider
+- The ListFiles tool now includes character count information when listing files, facilitating LLM's fragment reading decisions
+
+这个分支提供了几种Kilo官方未支持的功能：
+
+- 提供Moonshot Provider下Kimi-k2.5最佳的thinking模式支持，合并自 https://github.com/Neonsy/kilocode/tree/fix/moonshot-kimi-k2-5
+- 提供Anthropic Provider和Open Ai Provider下qwen3-max-2026-01-23（Qwen3-Max-Thinking）的思考与非思考模式支持
+- ListFiles工具列出文件时附带字符数信息，方便LLM进行片段读取决策
+
 > Kilo is the all-in-one agentic engineering platform. Build, ship, and iterate faster with the most popular open source coding agent.
 > #1 on OpenRouter. 1M+ Kilo Coders. 20T+ tokens processed
 
